@@ -116,13 +116,13 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T> {
             return false;
         }
 
-        Iterator<T>it = this.iterator();
-        Iterator<T>other = o.iterator();
+        Iterator<T> it = this.iterator();
+        Iterator<T> other = o.iterator();
 
         while (it.hasNext() && other.hasNext()) {
             T item1 = it.next();
             T item2 = other.next();
-            if (item1.equals(item2)){
+            if (item1.equals(item2)) {
                 return false;
             }
         }
