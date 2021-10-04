@@ -102,6 +102,7 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T> {
 
     /* For the equals to two ArrayRingBuffer */
 
+    /*
     public boolean equals(Object obj) {
         if (obj == null) {
             return false;
@@ -127,4 +128,5 @@ public class ArrayRingBuffer<T>  extends AbstractBoundedQueue<T> {
 
         return true;
     }
+     */
 }
