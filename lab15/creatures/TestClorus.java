@@ -8,12 +8,11 @@ import huglife.Action;
 import huglife.Occupant;
 import huglife.Impassible;
 import huglife.Empty;
-
-/** Tests the plip class   
+/** Tests the plip class
  *  @authr f00l
  */
 
-public class TestPlip {
+public class TestClorus {
 
     /* Replace with the magic word given in lab.
      * If you are submitting early, just put in "early" */
@@ -21,17 +20,17 @@ public class TestPlip {
 
     @Test
     public void testBasics() {
-        Plip p = new Plip(2);
-        assertEquals(2, p.energy(), 0.01);
-        assertEquals(new Color(99, 255, 76), p.color());
-        p.move();
-        assertEquals(1.85, p.energy(), 0.01);
-        p.move();
-        assertEquals(1.70, p.energy(), 0.01);
-        p.stay();
-        assertEquals(1.90, p.energy(), 0.01);
-        p.stay();
-        assertEquals(2.00, p.energy(), 0.01);
+        Clorus c = new Clorus(2);
+        assertEquals(2, c.energy(), 0.01);
+        assertEquals(new Color(34, 0, 231), c.color());
+        c.move();
+        assertEquals(1.97, c.energy(), 0.01);
+        c.move();
+        assertEquals(1.94, c.energy(), 0.01);
+        c.stay();
+        assertEquals(1.93, c.energy(), 0.01);
+        c.stay();
+        assertEquals(1.92, c.energy(), 0.01);
     }
 
     @Test
@@ -50,7 +49,7 @@ public class TestPlip {
 
         //You can create new empties with new Empty();
         //Despite what the spec says, you cannot test for Cloruses nearby yet.
-        //Sorry!  
+        //Sorry!
 
         Action actual = p.chooseAction(surrounded);
         Action expected = new Action(Action.ActionType.STAY);
@@ -61,4 +60,4 @@ public class TestPlip {
     public static void main(String[] args) {
         System.exit(jh61b.junit.textui.runClasses(TestPlip.class));
     }
-} 
+}

@@ -4,9 +4,13 @@ import huglife.Direction;
 import huglife.Action;
 import huglife.Occupant;
 import huglife.HugLifeUtils;
+
+import javax.swing.*;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
+import java.util.Random;
 
 /** An implementation of a motile pacifist photosynthesizer.
  *  @author Josh Hug
@@ -23,9 +27,9 @@ public class Plip extends Creature {
     /** creates plip with energy equal to E. */
     public Plip(double e) {
         super("plip");
-        r = 0;
+        r = 99;
         g = 0;
-        b = 0;
+        b = 76;
         energy = e;
     }
 
@@ -42,7 +46,7 @@ public class Plip extends Creature {
      *  that you get this exactly correct.
      */
     public Color color() {
-        g = 63;
+        g = (int) (63 + 96 * energy);
         return color(r, g, b);
     }
 
@@ -55,11 +59,16 @@ public class Plip extends Creature {
      *  private static final variable. This is not required for this lab.
      */
     public void move() {
+        energy -= 0.15;
     }
 
 
     /** Plips gain 0.2 energy when staying due to photosynthesis. */
     public void stay() {
+        energy += 0.2;
+        if (energy > 2.0) {
+            energy = 2.0;
+        }
     }
 
     /** Plips and their offspring each get 50% of the energy, with none
@@ -67,7 +76,9 @@ public class Plip extends Creature {
      *  Plip.
      */
     public Plip replicate() {
-        return this;
+        Plip result = new Plip(energy * 0.5);
+        energy = energy * 0.5;
+        return result;
     }
 
     /** Plips take exactly the following actions based on NEIGHBORS:
@@ -80,8 +91,29 @@ public class Plip extends Creature {
      *  scoop on how Actions work. See SampleCreature.chooseAction()
      *  for an example to follow.
      */
+
     public Action chooseAction(Map<Direction, Occupant> neighbors) {
+        List<Direction> clorus = getNeighborsOfType(neighbors, "clorus");
+        List<Direction> empty = getNeighborsOfType(neighbors, "empty");
+
+        // if there some free square
+        if(empty.size() != 0) {
+            Random rand =new Random(25);
+            int choice = rand.nextInt(empty.size());
+            if (energy >= 1.0) {
+               return new Action(Action.ActionType.REPLICATE, empty.get(choice));
+            }
+            // for case3
+            else if (clorus.size() != 0) {
+                return new Action(Action.ActionType.MOVE, empty.get(choice));
+            }
+            else {
+                return new Action(Action.ActionType.STAY);
+            }
+
+        }
+
+        // for the plip are surounded by others
         return new Action(Action.ActionType.STAY);
     }
-
 }
